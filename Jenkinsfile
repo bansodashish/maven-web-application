@@ -13,16 +13,6 @@ node
  sh  "${mavenHome}/bin/mvn clean package"
  }
  
- stage('ExecuteSoanrQubeReport')
- {
- sh  "${mavenHome}/bin/mvn sonar:sonar"
- }
- 
- stage('UploadArtifactintoNexus')
- {
- sh  "${mavenHome}/bin/mvn deploy"
- }
- 
  stage('DeployAppintoTomcat')
  {
  sshagent(['cd93d61f-2d0f-4c60-8b33-34cf4fa888b0']) {
@@ -30,12 +20,4 @@ node
  }
  }
 
- stage('SendEmailNotification')
- {
- emailext body: '''Build is over..
-
- Regards,
- Mithun Technologies,
- 9980923226.''', subject: 'Build is over', to: 'devopstrainingblr@gmail.com'
- }
  }
